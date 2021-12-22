@@ -7,19 +7,22 @@
         static void Main(string[] args)
         {
             StopWatch sw = new StopWatch();
+            
             sw.Start();
-            Utilities.Sleep(2);
-            sw.Lap();
-            Utilities.Sleep(2);
-            sw.Lap();
-            Utilities.Sleep(2);
+            for (int i = 0; i < 10; i++)
+            {
+                Utilities.Sleep(1);
+                sw.Lap();
+            }            
             sw.Stop();
-            Console.WriteLine(sw.Elapsed);
 
             foreach (var lap in sw.GetLaps())
             {
                 Console.WriteLine(lap);
             }
+
+            Console.WriteLine(sw.Elapsed);
+            Console.WriteLine(Statistics.Average(sw.GetLaps()));
         }
     }
 }
