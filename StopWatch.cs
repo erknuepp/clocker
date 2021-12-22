@@ -5,39 +5,40 @@
     using System.Diagnostics;
     using System.Linq;
 
-    internal static class StopWatch
+    internal class StopWatch
     {
-        private static Stopwatch _stopwatch;
-        private static List<Lap> _laps;
-        private static State _state;
+        private Stopwatch _stopwatch;
+        private List<Lap> _laps;
+        private State _state;
 
-        static StopWatch()
+        public StopWatch()
         {
             _stopwatch = new Stopwatch();
             _laps = new List<Lap>();
             _state = State.Reset;
         }
 
-        static void Start()
+        public void Start()
         {
 
-            if(_state == State.Reset || _state == State.Stopped)
+            if (_state == State.Reset || _state == State.Stopped)
             {
                 _stopwatch.Start();
                 _state = State.Running;
             }
         }
 
-        static void Stop()
+        public void Stop()
         {
             if (_state == State.Running)
             {
                 _stopwatch.Stop();
+                Lap();
                 _state = State.Stopped;
             }
         }
 
-        static void Reset()
+        public void Reset()
         {
             if (_state == State.Running || _state == State.Stopped)
             {
@@ -46,13 +47,12 @@
             }
         }
 
-        static void Lap()
+        public void Lap()
         {
             Lap lap;
             if (_laps.Count > 0)
             {
-                lap = new Lap(_laps.Last().Start, Elapsed);
-                
+                lap = new Lap(_laps.Last().End, Elapsed);
             }
             else
             {
@@ -61,9 +61,9 @@
             _laps.Add(lap);
         }
 
-        static List<Lap> GetLaps() { return _laps; }
+        public List<Lap> GetLaps() { return _laps; }
 
-        public static bool IsRunning => _stopwatch.IsRunning;
-        public static TimeSpan Elapsed => _stopwatch.Elapsed;
+        public bool IsRunning => _stopwatch.IsRunning;
+        public TimeSpan Elapsed => _stopwatch.Elapsed;
     }
 }
