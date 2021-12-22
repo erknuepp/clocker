@@ -13,5 +13,10 @@
             Start = start;
             End = end;
         }
+
+        public override string ToString()
+        {
+            return $"Start: {Start} End: {End} Elapsed: {Elapsed}";
+        }
     }
 }
