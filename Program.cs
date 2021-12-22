@@ -6,11 +6,20 @@
     {
         static void Main(string[] args)
         {
+            StopWatch sw = new StopWatch();
+            sw.Start();
+            Utilities.Sleep(2);
+            sw.Lap();
+            Utilities.Sleep(2);
+            sw.Lap();
+            Utilities.Sleep(2);
+            sw.Stop();
+            Console.WriteLine(sw.Elapsed);
 
-            Lap lap = new Lap(new TimeSpan(0, 0, 0), new TimeSpan(0, 1, 0));
-            Console.WriteLine(lap.Elapsed);
-            Console.WriteLine(Formatter.FormatTime(lap.Elapsed));
-            Console.WriteLine(Formatter.ShortFormatTime(lap.Elapsed));
+            foreach (var lap in sw.GetLaps())
+            {
+                Console.WriteLine(lap);
+            }
         }
     }
 }
